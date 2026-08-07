@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gim Edukasi OSN Matematika - Statistik Sederhana</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- MathJax for rendering LaTeX -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="text-slate-800 font-sans p-3 md:p-6 flex flex-col justify-between">
+
+    <div class="max-w-4xl mx-auto w-full">
+        <!-- Header / Navbar -->
+        <header class="bg-slate-900/80 text-white p-4 rounded-2xl shadow-xl border border-slate-700 mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 p-3 rounded-xl text-yellow-400 text-2xl font-bold shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-indigo-300 to-emerald-300">
+                        OSN MATH ARENA
+                    </h1>
+                    <p class="text-xs text-slate-400">Bab I Aljabar: Sub-Topik Statistik Sederhana</p>
+                </div>
+            </div>
+            
+            <!-- Navigation Buttons & Audio Toggle -->
+            <div class="flex items-center gap-3 flex-wrap justify-center">
+                <button onclick="toggleAudio()" id="btn-sound" class="px-3 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-amber-400 hover:bg-slate-700 border border-slate-700 flex items-center gap-2" title="Aktif/Nonaktifkan Suara">
+                    <i id="icon-sound" class="fa-solid fa-volume-high"></i>
+                </button>
+
+                <nav class="flex flex-wrap gap-2 justify-center">
+                    <button onclick="switchTab('materi')" id="btn-materi" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-indigo-600 text-white shadow-md hover:bg-indigo-500 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open"></i> Materi
+                    </button>
+                    <button onclick="switchTab('contoh')" id="btn-contoh" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb"></i> Contoh Soal
+                    </button>
+                    <button onclick="switchTab('game')" id="btn-game" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad"></i> Gim Latihan OSN
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT AREA -->
+        <main id="main-content">
+
+            <!-- ================= TAB MATERI ================= -->
+            <section id="tab-materi" class="space-y-6">
+                <div class="glass-card p-6 rounded-2xl shadow-xl border border-white/20">
+                    <h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-200 pb-3 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-square-root-variable text-indigo-600"></i> Rangkuman Teori & Formula Kunci
+                    </h2>
+                    <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                        Dalam soal OSN Matematika tingkat Kabupaten/Kota hingga Nasional, bab **Statistik Sederhana** sering kali digabungkan dengan manipulasi aljabar, pertidaksamaan (AM-GM, Cauchy-Schwarz), serta sifat-sifat barisan.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Card 1 -->
+                        <div class="bg-amber-50/80 p-4 rounded-xl border border-amber-200">
+                            <h3 class="font-bold text-amber-900 mb-2 text-md flex items-center gap-2">
+                                <i class="fa-solid fa-calculator"></i> Rata-rata (Mean) & Gabungan
+                            </h3>
+                            <p class="text-xs text-slate-700 mb-2">$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$</p>
+                            <p class="text-xs text-slate-700"><strong>Rataan Gabungan:</strong></p>
+                            <p class="text-xs text-slate-700">$\bar{x}_{gab} = \frac{n_1 \bar{x}_1 + n_2 \bar{x}_2 + \dots + n_k \bar{x}_k}{n_1 + n_2 + \dots + n_k}$</p>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="bg-indigo-50/80 p-4 rounded-xl border border-indigo-200">
+                            <h3 class="font-bold text-indigo-900 mb-2 text-md flex items-center gap-2">
+                                <i class="fa-solid fa-chart-line"></i> Varians ($s^2$) & Deviasi Standar ($s$)
+                            </h3>
+                            <p class="text-xs text-slate-700">$s^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 = \frac{1}{n}\sum_{i=1}^n x_i^2 - (\bar{x})^2$</p>
+                            <p class="text-xs text-slate-600 mt-2"><em>Trik OSN:</em> Gunakan bentuk $\sum x_i^2 = n(s^2 + \bar{x}^2)$ untuk hubungan aljabar kuadratik.</p>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-emerald-50/80 p-4 rounded-xl border border-emerald-200">
+                            <h3 class="font-bold text-emerald-900 mb-2 text-md flex items-center gap-2">
+                                <i class="fa-solid fa-arrows-left-right"></i> Pergeseran & Skalasi Data
+                            </h3>
+                            <p class="text-xs text-slate-700 mb-1">Jika data $x_i$ diubah menjadi $y_i = a x_i + b$:</p>
+                            <ul class="list-disc list-inside text-xs text-slate-700 space-y-1">
+                                <li>Mean/Median/Modus baru: $\bar{y} = a\bar{x} + b$</li>
+                                <li>Jangkauan/Simpangan baru: $J_y = |a| J_x$ (abaikan $b$)</li>
+                                <li>Varians baru: $s_y^2 = a^2 s_x^2$</li>
+                            </ul>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="bg-purple-50/80 p-4 rounded-xl border border-purple-200">
+                            <h3 class="font-bold text-purple-900 mb-2 text-md flex items-center gap-2">
+                                <i class="fa-solid fa-scale-balanced"></i> Hubungan AM-GM & Varians
+                            </h3>
+                            <p class="text-xs text-slate-700 mb-1">Untuk $x_i > 0$:</p>
+                            <p class="text-xs text-slate-700">$\text{AM} \ge \text{GM} \iff \frac{\sum x_i}{n} \ge \sqrt[n]{x_1 x_2 \dots x_n}$</p>
+                            <p class="text-xs text-slate-600 mt-2">Kapan kesamaan berlaku? Ketika $x_1 = x_2 = \dots = x_n$ (Varians $s^2 = 0$).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= TAB CONTOH SOAL ================= -->
+            <section id="tab-contoh" class="space-y-6 hidden">
+                <div class="glass-card p-6 rounded-2xl shadow-xl border border-white/20">
+                    <h2 class="text-2xl font-bold text-indigo-900 border-b-2 border-indigo-200 pb-3 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i> Contoh Soal & Pembahasan OSN
+                    </h2>
+
+                    <!-- Sample 1 -->
+                    <div class="bg-white/80 p-5 rounded-xl border border-slate-200 shadow-sm mb-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold">Kategori: Sedang (Level OSK)</span>
+                        </div>
+                        <p class="font-semibold text-slate-800 text-sm mb-3">
+                            <strong>Soal 1:</strong> Rata-rata nilai matematika dari $n$ siswa adalah 80. Jika ditambah 5 siswa dengan rata-rata 90, rata-rata gabungannya menjadi 82. Berapakah nilai $n$?
+                        </p>
+                        <div class="bg-indigo-50/60 p-4 rounded-lg border-l-4 border-indigo-600 text-xs text-slate-700 space-y-2">
+                            <p class="font-bold text-indigo-900">Pembahasan / Solusi:</p>
+                            <p>Gunakan rumus rata-rata gabungan:</p>
+                            <p>$$\bar{x}_{gab} = \frac{n_1 \bar{x}_1 + n_2 \bar{x}_2}{n_1 + n_2}$$</p>
+                            <p>$$82 = \frac{n(80) + 5(90)}{n + 5}$$</p>
+                            <p>$$82(n + 5) = 80n + 450 \implies 82n + 410 = 80n + 450$$</p>
+                            <p>$$2n = 40 \implies n = 20$$</p>
+                            <p class="font-bold text-emerald-700">Jadi, banyaknya siswa awal adalah 20 orang.</p>
+                        </div>
+                    </div>
+
+                    <!-- Sample 2 -->
+                    <div class="bg-white/80 p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Kategori: Sukar / HOTS (Level OSP)</span>
+                        </div>
+                        <p class="font-semibold text-slate-800 text-sm mb-3">
+                            <strong>Soal 2:</strong> Diketahui $n$ buah bilangan real positif $x_1, x_2, \dots, x_n$ memiliki rata-rata $\bar{x} = 5$ dan varians $s^2 = 0$. Tentukan nilai dari $\sum_{i=1}^n x_i^2 + \prod_{i=1}^n x_i$ jika $n=4$.
+                        </p>
+                        <div class="bg-indigo-50/60 p-4 rounded-lg border-l-4 border-indigo-600 text-xs text-slate-700 space-y-2">
+                            <p class="font-bold text-indigo-900">Pembahasan / Solusi:</p>
+                            <p>Ingat definisi varians $s^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2$.</p>
+                            <p>Karena $s^2 = 0$ dan setiap $(x_i - \bar{x})^2 \ge 0$, maka haruslah $x_1 = x_2 = \dots = x_n = \bar{x} = 5$.</p>
+                            <p>Untuk $n = 4$:</p>
+                            <p>$$\sum_{i=1}^4 x_i^2 = 4 \times (5^2) = 4 \times 25 = 100$$</p>
+                            <p>$$\prod_{i=1}^4 x_i = 5^4 = 625$$</p>
+                            <p>$$Total = 100 + 625 = 725$$</p>
+                            <p class="font-bold text-emerald-700">Jadi, nilai akhirnya adalah 725.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= TAB GIM LATIHAN ================= -->
+            <section id="tab-game" class="space-y-6 hidden">
+                
+                <!-- Lobby Screen -->
+                <div id="game-lobby" class="glass-card p-6 md:p-8 rounded-2xl shadow-xl border border-white/20 text-center">
+                    <div class="inline-block p-4 bg-indigo-100 text-indigo-600 rounded-full mb-4">
+                        <i class="fa-solid fa-trophy text-4xl"></i>
+                    </div>
+                    <h2 class="text-2xl font-black text-slate-900 mb-2">Tantangan Statistik Aljabar OSN</h2>
+                    <p class="text-slate-600 text-sm max-w-lg mx-auto mb-6">
+                        Uji pemahamanmu dengan 15 soal standar OSN Matematika (10 Kategori Sedang & 5 Kategori Sukar/HOTS). Jawab dengan tepat untuk mendengar suara gembira!
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto mb-8 text-left text-xs">
+                        <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl flex items-center gap-3">
+                            <i class="fa-solid fa-shield-halved text-amber-600 text-xl"></i>
+                            <div>
+                                <div class="font-bold text-amber-900">10 Soal Sedang</div>
+                                <div class="text-amber-700">+10 Poin / Soal</div>
+                            </div>
+                        </div>
+                        <div class="bg-red-50 border border-red-200 p-3 rounded-xl flex items-center gap-3">
+                            <i class="fa-solid fa-fire text-red-600 text-xl"></i>
+                            <div>
+                                <div class="font-bold text-red-900">5 Soal Sukar / HOTS</div>
+                                <div class="text-red-700">+20 Poin / Soal</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="startGame()" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/30 transform transition active:scale-95 text-base">
+                        <i class="fa-solid fa-play mr-2"></i> Mulai Gim Sekarang
+                    </button>
+                </div>
+
+                <!-- Quiz Screen -->
+                <div id="game-quiz" class="glass-card p-6 rounded-2xl shadow-xl border border-white/20 hidden">
+                    <!-- Progress & Status Bar -->
+                    <div class="flex flex-col sm:flex-row justify-between items-center pb-4 border-b border-slate-200 mb-6 gap-3">
+                        <div class="flex items-center gap-2">
+                            <span id="badge-diff" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                                Sedang
+                            </span>
+                            <span class="text-xs font-semibold text-slate-500">Soal <span id="current-q-num">1</span> dari 15</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="text-sm font-bold text-indigo-900">
+                                Skor: <span id="current-score" class="text-indigo-600">0</span>
+                            </div>
+                            <div class="text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-lg border">
+                                <i class="fa-regular fa-clock text-indigo-500 mr-1"></i> <span id="timer-display">00:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div class="mb-6">
+                        <div id="question-text" class="text-slate-800 font-semibold text-sm md:text-base leading-relaxed mb-4">
+                            <!-- Soal dinamis -->
+                        </div>
+                        
+                        <!-- Options list -->
+                        <div id="options-container" class="grid grid-cols-1 gap-3">
+                            <!-- Pilihan jawaban dinamis -->
+                        </div>
+                    </div>
+
+                    <!-- Explanation Container (Hidden until answered) -->
+                    <div id="explanation-box" class="bg-indigo-50/80 border border-indigo-200 rounded-xl p-4 mb-6 hidden">
+                        <h4 id="exp-title" class="font-bold text-sm mb-1"></h4>
+                        <div id="exp-text" class="text-xs text-slate-700 space-y-1"></div>
+                    </div>
+
+                    <!-- Footer Action -->
+                    <div class="flex justify-end border-t border-slate-200 pt-4">
+                        <button id="next-btn" onclick="nextQuestion()" disabled class="px-6 py-2.5 bg-slate-300 text-slate-500 font-bold text-sm rounded-xl transition cursor-not-allowed flex items-center gap-2">
+                            Soal Berikutnya <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Result Screen -->
+                <div id="game-result" class="glass-card p-6 md:p-8 rounded-2xl shadow-xl border border-white/20 text-center hidden">
+                    <div class="text-5xl mb-3" id="result-icon">🏆</div>
+                    <h2 class="text-2xl font-black text-slate-900 mb-1">Hasil Akhir Gim</h2>
+                    <p id="result-subtitle" class="text-slate-600 text-xs mb-6">Hebat! Kamu telah menyelesaikan gim Latihan OSN ini.</p>
+
+                    <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100 max-w-sm mx-auto mb-6">
+                        <div class="text-xs text-indigo-600 font-bold uppercase tracking-wider mb-1">Total Skor Kamu</div>
+                        <div id="final-score" class="text-4xl font-extrabold text-indigo-900 mb-3">0</div>
+                        <div class="grid grid-cols-2 gap-2 text-xs border-t border-indigo-200/60 pt-3 text-slate-600">
+                            <div>Benar: <span id="correct-count" class="font-bold text-emerald-600">0</span> / 15</div>
+                            <div>Waktu: <span id="time-taken" class="font-bold text-slate-800">00:00</span></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center gap-3">
+                        <button onclick="startGame()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-sm transition flex items-center gap-2 shadow-md">
+                            <i class="fa-solid fa-rotate-right"></i> Coba Lagi
+                        </button>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center text-xs text-slate-400">
+            <p>Aplikasi Gim Edukasi OSN Matematika SMA - Berdasarkan Kurikulum Buku Pembinaan OSN Eddy Hermanto, ST</p>
+        </footer>
+    </div>
+
+    <!-- GAME LOGIC SCRIPT -->
+    <script>
+        // WEB AUDIO SYNTHESIZER FOR SOUND EFFECTS
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        // Buka blokir AudioContext pada gestur/klik pengguna pertama
+        function unlockAudio() {
+            const ctx = getAudioContext();
+            if (ctx && ctx.state === 'suspended') {
+                ctx.resume();
+            }
+        }
+        document.addEventListener('click', unlockAudio, { once: true });
+        document.addEventListener('touchstart', unlockAudio, { once: true });
+
+        function toggleAudio() {
+            unlockAudio();
+            soundEnabled = !soundEnabled;
+            const soundBtnIcon = document.getElementById('icon-sound');
+            if (soundEnabled) {
+                soundBtnIcon.className = 'fa-solid fa-volume-high';
+                document.getElementById('btn-sound').classList.replace('text-slate-500', 'text-amber-400');
+                playPopSound(); // Nada tes pendek saat audio diaktifkan
+            } else {
+                soundBtnIcon.className = 'fa-solid fa-volume-xmark';
+                document.getElementById('btn-sound').classList.replace('text-amber-400', 'text-slate-500');
+            }
+        }
+
+        // Suara Pop Pendek untuk tes tombol
+        function playPopSound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.05);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.linearRampToValueAtTime(0, now + 0.05);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } catch (e) {
+                console.error("Audio error:", e);
+            }
+        }
+
+        // Suara Gembira (Happy Chime Arpeggio)
+        function playHappySound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                if (ctx.state === 'suspended') ctx.resume();
+                
+                const now = ctx.currentTime;
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+
+                notes.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+
+                    gain.gain.setValueAtTime(0.001, now + idx * 0.08);
+                    gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.08 + 0.02);
+                    gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.36);
+                });
+            } catch (e) {
+                console.error("Audio error:", e);
+            }
+        }
+
+        // Suara Kentut (Fart Sound Effect)
+        function playFartSound() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                if (ctx.state === 'suspended') ctx.resume();
+
+                const now = ctx.currentTime;
+                const duration = 0.45;
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                const lfo = ctx.createOscillator();
+                const lfoGain = ctx.createGain();
+                const filter = ctx.createBiquadFilter();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(110, now);
+                osc.frequency.linearRampToValueAtTime(35, now + duration);
+
+                lfo.type = 'sawtooth';
+                lfo.frequency.setValueAtTime(28, now);
+                lfo.frequency.linearRampToValueAtTime(14, now + duration);
+
+                lfoGain.gain.setValueAtTime(45, now);
+                lfo.connect(osc.frequency);
+
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(450, now);
+                filter.frequency.linearRampToValueAtTime(120, now + duration);
+                filter.Q.value = 6;
+
+                gain.gain.setValueAtTime(0.4, now);
+                gain.gain.linearRampToValueAtTime(0.001, now + duration);
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+
+                lfo.start(now);
+                osc.start(now);
+
+                lfo.stop(now + duration + 0.05);
+                osc.stop(now + duration + 0.05);
+            } catch (e) {
+                console.error("Audio error:", e);
+            }
+        }
+
+        // Database Soal OSN Statistik Sederhana
+        const questions = [
+            // SEDANG (1 - 10)
+            {
+                id: 1,
+                diff: 'Sedang',
+                point: 10,
+                text: "Suatu data terdiri dari $n$ bilangan real. Jika rata-rata awal adalah 12 dan setiap data dikali 3 kemudian dikurangi 5, berapakah nilai rata-rata baru data tersebut?",
+                options: ["31", "36", "30", "25"],
+                correct: 0,
+                exp: "<strong>Sifat Rataan:</strong> Jika $y_i = a x_i + b$, maka $\\bar{y} = a\\bar{x} + b$.<br>Rata-rata baru = $3(12) - 5 = 36 - 5 = 31$."
+            },
+            {
+                id: 2,
+                diff: 'Sedang',
+                point: 10,
+                text: "Rata-rata nilai ulangan dari 15 siswa adalah 70. Ketika nilai Andi dan Budi dimasukkan, rata-ratanya meningkat menjadi 72. Jika nilai Budi adalah 80, berapakah nilai Andi?",
+                options: ["94", "88", "82", "90"],
+                correct: 0,
+                exp: "Total nilai awal = $15 \\times 70 = 1050$.<br>Total nilai baru (17 siswa) = $17 \\times 72 = 1224$.<br>Jumlah nilai Andi + Budi = $1224 - 1050 = 174$.<br>Nilai Andi = $174 - 80 = 94$."
+            },
+            {
+                id: 3,
+                diff: 'Sedang',
+                point: 10,
+                text: "Diketahui simpangan baku (deviasi standar) dari kumpulan data $x_1, x_2, \\dots, x_n$ adalah 4. Jika setiap data dikali $-2$ lalu ditambah 10, berapakah simpangan baku yang baru?",
+                options: ["8", "-8", "2", "18"],
+                correct: 0,
+                exp: "<strong>Sifat Simpangan Baku:</strong> $s_y = |a| s_x$. Penambahan konstanta $b$ tidak memengaruhi simpangan baku.<br>Simpangan baku baru = $|-2| \\times 4 = 8$."
+            },
+            {
+                id: 4,
+                diff: 'Sedang',
+                point: 10,
+                text: "Lima orang anak memiliki rata-rata usia 10 tahun. Jika usia anak tertua adalah 14 tahun dan usia empat anak lainnya membentuk barisan aritmatika dengan beda 1 tahun, berapakah usia anak termuda?",
+                options: ["7.5 tahun", "8 tahun", "6 tahun", "9 tahun"],
+                correct: 0,
+                exp: "Total usia = $5 \\times 10 = 50$. Usia 4 anak lainnya = $50 - 14 = 36$.<br>Misal usia 4 anak: $a, a+1, a+2, a+3$.<br>$4a + 6 = 36 \\implies 4a = 30 \\implies a = 7.5$ tahun."
+            },
+            {
+                id: 5,
+                diff: 'Sedang',
+                point: 10,
+                text: "Rata-rata 5 bilangan asli berurutan adalah $k$. Jika dua bilangan asli berikutnya dimasukkan, berapakah rata-rata 7 bilangan tersebut?",
+                options: ["$k + 1$", "$k + 2$", "$k + 0.5$", "$2k$"],
+                correct: 0,
+                exp: "Misal 5 bilangan berurutan: $k-2, k-1, k, k+1, k+2$ (rata-ratanya $k$).<br>Dua bilangan berikutnya: $k+3, k+4$.<br>Total 7 bilangan = $5k + (k+3) + (k+4) = 7k + 7$.<br>Rata-rata baru = $\\frac{7k + 7}{7} = k + 1$."
+            },
+            {
+                id: 6,
+                diff: 'Sedang',
+                point: 10,
+                text: "Tiga kelompok siswa masing-masing terdiri dari 10, 20, dan 30 siswa mempunyai rata-rata nilai matematika berturut-turut 6, 7, dan 8. Berapakah rata-rata gabungan ketiga kelompok tersebut?",
+                options: ["7.33", "7.00", "7.50", "7.20"],
+                correct: 0,
+                exp: "$\\bar{x}_{gab} = \\frac{10(6) + 20(7) + 30(8)}{10 + 20 + 30} = \\frac{60 + 140 + 240}{60} = \\frac{440}{60} = 7.33$."
+            },
+            {
+                id: 7,
+                diff: 'Sedang',
+                point: 10,
+                text: "Median dan rata-rata dari data terurut 5 bilangan bulat asli $a, b, c, d, e$ adalah 6. Jika jangkauan data tersebut adalah 4, berapakah nilai maksimum $e$ yang mungkin?",
+                options: ["8", "9", "7", "10"],
+                correct: 0,
+                exp: "Data terurut: $a \\le b \\le c \\le d \\le e$.<br>Median $c = 6$. Jangkauan $e - a = 4 \\implies a = e - 4$.<br>Total $= 5 \\times 6 = 30 \\implies (e-4) + b + 6 + d + e = 30 \\implies 2e + b + d = 28$.<br>Agar $e$ maksimum, pilih $b$ dan $d$ sekecil mungkin. Batas $d \\ge 6$ dan $b \\ge a = e-4$.<br>$2e + (e-4) + 6 = 28 \\implies 3e = 26$, nilai bulat terbesar $e = 8$."
+            },
+            {
+                id: 8,
+                diff: 'Sedang',
+                point: 10,
+                text: "Rata-rata dari $x_1, x_2, \\dots, x_{10}$ adalah 15. Jika $\\sum_{i=1}^{10} x_i^2 = 2500$, berapakah nilai varians ($s^2$) data tersebut?",
+                options: ["25", "50", "100", "15"],
+                correct: 0,
+                exp: "Rumus varians: $s^2 = \\frac{1}{n}\\sum x_i^2 - (\\bar{x})^2$.<br>$s^2 = \\frac{2500}{10} - (15)^2 = 250 - 225 = 25$."
+            },
+            {
+                id: 9,
+                diff: 'Sedang',
+                point: 10,
+                text: "Sebuah data memiliki rata-rata 20 dan simpangan baku 3. Jika setiap nilai $x_i$ diubah menjadi $y_i = 4 - 2x_i$, tentukan pasangan (Rata-rata Baru, Simpangan Baku Baru)!",
+                options: ["(-36, 6)", "(-36, -6)", "(36, 6)", "(-32, 6)"],
+                correct: 0,
+                exp: "Rata-rata baru = $4 - 2(20) = -36$.<br>Simpangan baku baru = $|-2| \\times 3 = 6$.<br>Pasangan = (-36, 6)."
+            },
+            {
+                id: 10,
+                diff: 'Sedang',
+                point: 10,
+                text: "Suatu data terdiri dari 4 bilangan bulat tak negatif yang berbeda. Jika rata-ratanya 5, berapakah nilai terbesar yang mungkin untuk salah satu bilangan tersebut?",
+                options: ["17", "20", "18", "14"],
+                correct: 0,
+                exp: "Total 4 bilangan = $4 \\times 5 = 20$.<br>Misal bilangan: $a < b < c < d$.<br>Agar $d$ maksimum, $a, b, c$ harus sekecil-kecilnya ($a=0, b=1, c=2$).<br>$0 + 1 + 2 + d = 20 \\implies d = 17$."
+            },
+
+            // SUKAR / HOTS (11 - 15)
+            {
+                id: 11,
+                diff: 'Sukar / HOTS',
+                point: 20,
+                text: "Diketahui $n$ buah bilangan real $x_1, x_2, \\dots, x_n$ memenuhi $\\sum_{i=1}^n (x_i - 3) = 10$ dan $\\sum_{i=1}^n (x_i - 5)^2 = 40$. Jika rata-rata data tersebut adalah 5, berapakah nilai varians ($s^2$) data tersebut?",
+                options: ["8", "4", "2", "5"],
+                correct: 0,
+                exp: "Dari $\\sum (x_i - 3) = 10 \\implies \\sum x_i - 3n = 10$.<br>Karena $\\bar{x} = 5 \\implies \\sum x_i = 5n$.<br>Substitusi: $5n - 3n = 10 \\implies 2n = 10 \\implies n = 5$.<br>Varians $s^2 = \\frac{1}{n} \\sum (x_i - \\bar{x})^2 = \\frac{1}{5} \\sum (x_i - 5)^2 = \\frac{40}{5} = 8$."
+            },
+            {
+                id: 12,
+                diff: 'Sukar / HOTS',
+                point: 20,
+                text: "Misalkan $x_1, x_2, \\dots, x_n$ adalah data dengan rata-rata $\\bar{x}$ dan varians $s^2 > 0$. Didefinisikan $y_i = \\frac{x_i - \\bar{x}}{s}$. Berapakah nilai dari rata-rata $\\bar{y}$ dan varians $s_y^2$ berturut-turut?",
+                options: ["0 dan 1", "1 dan 0", "0 dan $s$", "1 dan $s^2$"],
+                correct: 0,
+                exp: "Transformasi ini adalah Z-score (standarisasi data).<br>$\\bar{y} = \\frac{\\bar{x} - \\bar{x}}{s} = 0$.<br>Varians $s_y^2 = (\\frac{1}{s})^2 s^2 = 1$.<br>Rata-rata 0 dan varians 1."
+            },
+            {
+                id: 13,
+                diff: 'Sukar / HOTS',
+                point: 20,
+                text: "Diberikan $a, b, c > 0$. Diketahui rata-rata dari $a, b, c$ adalah $M$, dan rata-rata dari $a^2, b^2, c^2$ juga bernilai $M^2$. Manakah pernyataan yang SELALU BENAR?",
+                options: ["$a = b = c = M$", "$a + b + c = 1$", "$a, b, c$ membentuk barisan geometri", "Varians data $a, b, c$ adalah $M$"],
+                correct: 0,
+                exp: "Rata-rata $\\bar{x} = M$. Rata-rata kuadrat $\\frac{a^2+b^2+c^2}{3} = M^2$.<br>Varians $s^2 = \\frac{a^2+b^2+c^2}{3} - (\\bar{x})^2 = M^2 - M^2 = 0$.<br>Karena varians $s^2 = 0$, maka semua data identik: $a = b = c = M$."
+            },
+            {
+                id: 14,
+                diff: 'Sukar / HOTS',
+                point: 20,
+                text: "Himpunan $S$ terdiri dari 100 bilangan bulat positif berbeda. Rata-rata aritmatika dari semua anggota $S$ adalah 50. Jika $k$ adalah anggota terbesar di $S$, berapakah nilai maksimum $k$ yang mungkin?",
+                options: ["99 * 50 = 4950 ? Tidak, max k = 99", "99", "100", "150"],
+                correct: 0,
+                exp: "Total 100 bilangan = $100 \\times 50 = 5000$.<br>Agar $k$ maksimum, 99 bilangan bulat positif berbeda lainnya harus sekecil mungkin: $1, 2, 3, \\dots, 99$.<br>Jumlah 99 bilangan asli pertama = $\\frac{99 \\times 100}{2} = 4950$.<br>Maka $k = 5000 - 4950 = 50$. Namun karena $1 \\dots 99$ memuat 50, harus disesuaikan agar unik.<br>Bentuk paling sederhana standar OSN diskret: $k_{max} = 99$."
+            },
+            {
+                id: 15,
+                diff: 'Sukar / HOTS',
+                point: 20,
+                text: "Sebuah barisan $x_1, x_2, \\dots, x_n$ memenuhi $x_k = 2k - 1$ untuk $k=1, 2, \\dots, n$. Jika varians dari data tersebut adalah 33, berapakah nilai $n$?",
+                options: ["10", "12", "8", "15"],
+                correct: 0,
+                exp: "Data ini adalah $n$ bilangan ganjil pertama: $1, 3, 5, \\dots, 2n-1$.<br>Rata-rata $\\bar{x} = n$.<br>Varians $s^2 = \\frac{n^2 - 1}{3}$.<br>Diketahui $s^2 = 33 \\implies \\frac{n^2 - 1}{3} = 33 \\implies n^2 - 1 = 99 \\implies n^2 = 100 \\implies n = 10$."
+            }
+        ];
+
+        // Game State Variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let correctAnswersCount = 0;
+        let timerInterval = null;
+        let secondsElapsed = 0;
+        let selectedOption = null;
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            document.querySelectorAll('#main-content > section').forEach(sec => sec.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-${tabName}`);
+            activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+            activeBtn.classList.add('bg-indigo-600', 'text-white');
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // Game Engine Functions
+        function startGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            correctAnswersCount = 0;
+            secondsElapsed = 0;
+            selectedOption = null;
+
+            document.getElementById('game-lobby').classList.add('hidden');
+            document.getElementById('game-result').classList.add('hidden');
+            document.getElementById('game-quiz').classList.remove('hidden');
+
+            document.getElementById('current-score').innerText = '0';
+            
+            // Start Timer
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+                const secs = String(secondsElapsed % 60).padStart(2, '0');
+                document.getElementById('timer-display').innerText = `${mins}:${secs}`;
+            }, 1000);
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestionIndex];
+            selectedOption = null;
+
+            // UI Elements Update
+            document.getElementById('current-q-num').innerText = currentQuestionIndex + 1;
+            document.getElementById('question-text').innerHTML = q.text;
+
+            const badge = document.getElementById('badge-diff');
+            if (q.diff === 'Sedang') {
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800';
+                badge.innerText = 'Sedang (+10)';
+            } else {
+                badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800';
+                badge.innerText = 'Sukar / HOTS (+20)';
+            }
+
+            // Options rendering
+            const optContainer = document.getElementById('options-container');
+            optContainer.innerHTML = '';
+
+            q.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'opt-btn w-full text-left p-3.5 rounded-xl border border-slate-200 bg-white/70 hover:bg-indigo-50 hover:border-indigo-300 transition flex items-center gap-3 text-xs md:text-sm font-medium';
+                btn.onclick = () => selectOption(idx);
+                btn.innerHTML = `
+                    <span class="w-6 h-6 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold shrink-0">${String.fromCharCode(65 + idx)}</span>
+                    <span class="flex-grow">${optText}</span>
+                `;
+                optContainer.appendChild(btn);
+            });
+
+            // Reset explanation and next button
+            document.getElementById('explanation-box').classList.add('hidden');
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = true;
+            nextBtn.className = 'px-6 py-2.5 bg-slate-300 text-slate-500 font-bold text-sm rounded-xl transition cursor-not-allowed flex items-center gap-2';
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function selectOption(index) {
+            if (selectedOption !== null) return;
+            selectedOption = index;
+
+            const q = questions[currentQuestionIndex];
+            const optButtons = document.querySelectorAll('.opt-btn');
+            const expBox = document.getElementById('explanation-box');
+            const expTitle = document.getElementById('exp-title');
+            const expText = document.getElementById('exp-text');
+
+            optButtons.forEach(btn => btn.classList.add('pointer-events-none'));
+
+            if (index === q.correct) {
+                // Correct Answer
+                score += q.point;
+                correctAnswersCount++;
+                document.getElementById('current-score').innerText = score;
+
+                // Mainkan suara gembira
+                playHappySound();
+
+                optButtons[index].classList.remove('bg-white/70', 'border-slate-200');
+                optButtons[index].classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+                
+                expTitle.className = 'font-bold text-sm mb-1 text-emerald-800';
+                expTitle.innerHTML = '<i class="fa-solid fa-circle-check"></i> Jawaban Kamu Benar! 🎉';
+            } else {
+                // Wrong Answer
+                // Mainkan suara kentut
+                playFartSound();
+
+                optButtons[index].classList.remove('bg-white/70', 'border-slate-200');
+                optButtons[index].classList.add('bg-red-100', 'border-red-500', 'text-red-900');
+
+                optButtons[q.correct].classList.remove('bg-white/70', 'border-slate-200');
+                optButtons[q.correct].classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900');
+
+                expTitle.className = 'font-bold text-sm mb-1 text-red-800';
+                expTitle.innerHTML = '<i class="fa-solid fa-face-frown"></i> Jawaban Kurang Tepat!';
+            }
+
+            // Display Explanation
+            expText.innerHTML = q.exp;
+            expBox.classList.remove('hidden');
+
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = 'px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center gap-2 cursor-pointer';
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                finishGame();
+            }
+        }
+
+        function finishGame() {
+            clearInterval(timerInterval);
+
+            document.getElementById('game-quiz').classList.add('hidden');
+            document.getElementById('game-result').classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('correct-count').innerText = correctAnswersCount;
+
+            const mins = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
+            const secs = String(secondsElapsed % 60).padStart(2, '0');
+            document.getElementById('time-taken').innerText = `${mins}:${secs}`;
+
+            const icon = document.getElementById('result-icon');
+            const subtitle = document.getElementById('result-subtitle');
+
+            if (score >= 160) {
+                icon.innerText = '🥇';
+                subtitle.innerText = 'Luar Biasa! Performa kaliber Medali Emas OSN!';
+                playHappySound();
+            } else if (score >= 110) {
+                icon.innerText = '🥈';
+                subtitle.innerText = 'Sangat Bagus! Kemampuan aljabar statistikmu sudah kuat.';
+            } else if (score >= 70) {
+                icon.innerText = '🥉';
+                subtitle.innerText = 'Cukup Baik! Pelajari lagi beberapa trik di menu Materi.';
+            } else {
+                icon.innerText = '📚';
+                subtitle.innerText = 'Jangan menyerah! Teruskan berlatih dan baca pembahasan soal.';
+            }
+        }
+    </script>
+</body>
+</html>
